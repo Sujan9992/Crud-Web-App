@@ -9,7 +9,7 @@
         <br />
         <br />
         <div>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" DeleteCommand="DELETE FROM &quot;DEPARTMENT&quot; WHERE &quot;DEP_ID&quot; = :DEP_ID" InsertCommand="INSERT INTO &quot;COURSEWORK&quot;.&quot;DEPARTMENT&quot; (DEP_ID, DEP_NAME) select nvl(to_number(:dep_id), 0), to_char(:dep_name) from dual where not exists (select 1 from &quot;COURSEWORK&quot;.&quot;DEPARTMENT&quot; where dep_id=:dep_id)" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM &quot;DEPARTMENT&quot;" UpdateCommand="UPDATE &quot;DEPARTMENT&quot; SET &quot;DEP_NAME&quot; = :DEP_NAME WHERE &quot;DEP_ID&quot; = :DEP_ID">
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" DeleteCommand="DELETE FROM &quot;DEPARTMENT&quot; WHERE &quot;DEP_ID&quot; = :DEP_ID" InsertCommand="INSERT INTO &quot;COURSEWORK&quot;.&quot;DEPARTMENT&quot; (DEP_ID, DEP_NAME) select (to_number(:dep_id), to_char(:dep_name) from dual where not exists (select 1 from &quot;COURSEWORK&quot;.&quot;DEPARTMENT&quot; where dep_id=:dep_id)" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM &quot;DEPARTMENT&quot;" UpdateCommand="UPDATE &quot;DEPARTMENT&quot; SET &quot;DEP_NAME&quot; = :DEP_NAME WHERE &quot;DEP_ID&quot; = :DEP_ID">
             <DeleteParameters>
                 <asp:Parameter Name="DEP_ID" Type="Decimal" />
             </DeleteParameters>
@@ -56,11 +56,13 @@
                 DEP_ID:
                 <br />
                 <asp:TextBox ID="DEP_IDTextBox" runat="server" Text='<%# Bind("DEP_ID") %>' />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="DEP_IDTextBox" ErrorMessage="Please enter the ID" ForeColor="Red"></asp:RequiredFieldValidator>
                 <br />
                 <br />
                 DEP_NAME:
                 <br />
                 <asp:TextBox ID="DEP_NAMETextBox" runat="server" Text='<%# Bind("DEP_NAME") %>' />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="DEP_NAMETextBox" ErrorMessage="Please enter the name" ForeColor="Red"></asp:RequiredFieldValidator>
                 <br />
                 <br />
                 <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Insert" />

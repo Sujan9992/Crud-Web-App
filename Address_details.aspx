@@ -10,7 +10,7 @@
         <br />
         <div>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" DeleteCommand="DELETE FROM &quot;TEACHERADDRESS&quot; WHERE &quot;ADDRESS_ID&quot; = :ADDRESS_ID" InsertCommand="insert into teacheraddress(address_id, address_name, teacher)
-select nvl(to_number(:address_id), 0), to_char(:address_name), to_number(:teacher)
+select (to_number(:address_id), to_char(:address_name), to_number(:teacher)
 from dual where not exists (select 1 from teacheraddress where address_id=:address_id)" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM &quot;TEACHERADDRESS&quot;" UpdateCommand="UPDATE &quot;TEACHERADDRESS&quot; SET &quot;ADDRESS_NAME&quot; = :ADDRESS_NAME, &quot;TEACHER&quot; = :TEACHER WHERE &quot;ADDRESS_ID&quot; = :ADDRESS_ID">
             <DeleteParameters>
                 <asp:Parameter Name="ADDRESS_ID" Type="Decimal" />
@@ -65,11 +65,13 @@ from dual where not exists (select 1 from teacheraddress where address_id=:addre
                 ADDRESS_ID:
                 <br />
                 <asp:TextBox ID="ADDRESS_IDTextBox" runat="server" Text='<%# Bind("ADDRESS_ID") %>' />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ADDRESS_IDTextBox" ErrorMessage="Please enter the ID" ForeColor="Red"></asp:RequiredFieldValidator>
                 <br />
                 <br />
                 ADDRESS_NAME:
                 <br />
                 <asp:TextBox ID="ADDRESS_NAMETextBox" runat="server" Text='<%# Bind("ADDRESS_NAME") %>' />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ADDRESS_NAMETextBox" ErrorMessage="Please enter the address" ForeColor="Red"></asp:RequiredFieldValidator>
                 <br />
                 <br />
                 TEACHER:

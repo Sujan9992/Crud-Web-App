@@ -9,7 +9,7 @@
         <br />
         <br />
         <div>
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" DeleteCommand="DELETE FROM &quot;MODULE&quot; WHERE &quot;MODULE_CODE&quot; = :MODULE_CODE" InsertCommand="INSERT INTO MODULE(MODULE_CODE, MODULE_NAME, CREDIT_HOURS) select nvl(to_char(:module_code), 'null'), to_char(:module_name), to_number(:credit_hours) from dual where not exists (select 1 from MODULE where module_code=:module_code)" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM &quot;MODULE&quot;" UpdateCommand="UPDATE &quot;MODULE&quot; SET &quot;MODULE_NAME&quot; = :MODULE_NAME, &quot;CREDIT_HOURS&quot; = :CREDIT_HOURS WHERE &quot;MODULE_CODE&quot; = :MODULE_CODE">
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" DeleteCommand="DELETE FROM &quot;MODULE&quot; WHERE &quot;MODULE_CODE&quot; = :MODULE_CODE" InsertCommand="INSERT INTO MODULE(MODULE_CODE, MODULE_NAME, CREDIT_HOURS) select to_char(:module_code), to_char(:module_name), to_number(:credit_hours) from dual where not exists (select 1 from MODULE where module_code=:module_code)" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM &quot;MODULE&quot;" UpdateCommand="UPDATE &quot;MODULE&quot; SET &quot;MODULE_NAME&quot; = :MODULE_NAME, &quot;CREDIT_HOURS&quot; = :CREDIT_HOURS WHERE &quot;MODULE_CODE&quot; = :MODULE_CODE">
                 <DeleteParameters>
                     <asp:Parameter Name="MODULE_CODE" Type="String" />
                 </DeleteParameters>
@@ -62,16 +62,19 @@
                 MODULE_CODE:
                 <br />
                 <asp:TextBox ID="MODULE_CODETextBox" runat="server" Text='<%# Bind("MODULE_CODE") %>' />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="MODULE_CODETextBox" ErrorMessage="Please enter the module code" ForeColor="Red"></asp:RequiredFieldValidator>
                 <br />
                 <br />
                 MODULE_NAME:
                 <br />
                 <asp:TextBox ID="MODULE_NAMETextBox" runat="server" Text='<%# Bind("MODULE_NAME") %>' />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="MODULE_NAMETextBox" ErrorMessage="Please enter the module" ForeColor="Red"></asp:RequiredFieldValidator>
                 <br />
                 <br />
                 CREDIT_HOURS:
                 <br />
                 <asp:TextBox ID="CREDIT_HOURSTextBox" runat="server" Text='<%# Bind("CREDIT_HOURS") %>' />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="CREDIT_HOURSTextBox" ErrorMessage="Please enter the credit hour" ForeColor="Red"></asp:RequiredFieldValidator>
                 <br />
                 <br />
                 <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Insert" />

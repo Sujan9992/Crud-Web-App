@@ -11,7 +11,7 @@
         <div>
             <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM &quot;DEPARTMENT&quot;"></asp:SqlDataSource>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" DeleteCommand="DELETE FROM &quot;TEACHER&quot; WHERE &quot;TEACHER_ID&quot; = :TEACHER_ID" InsertCommand="insert into teacher(teacher_id,teacher_name, email, department)
-select nvl(to_number(:teacher_id), 0), to_char(:teacher_name),to_char(:email), to_number(:department)
+select to_number(:teacher_id), to_char(:teacher_name),to_char(:email), to_number(:department)
 from dual where not exists (select 1 from teacher where teacher_id=:teacher_id)" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM &quot;TEACHER&quot;" UpdateCommand="UPDATE &quot;TEACHER&quot; SET &quot;TEACHER_NAME&quot; = :TEACHER_NAME, &quot;DEPARTMENT&quot; = :DEPARTMENT, &quot;EMAIL&quot; = :EMAIL WHERE &quot;TEACHER_ID&quot; = :TEACHER_ID">
                 <DeleteParameters>
                     <asp:Parameter Name="TEACHER_ID" Type="Decimal" />
@@ -53,7 +53,7 @@ from dual where not exists (select 1 from teacher where teacher_id=:teacher_id)"
                 <SortedDescendingHeaderStyle BackColor="#15524A" />
             </asp:GridView>
         </div>
-        <asp:FormView ID="FormView1" runat="server" DataKeyNames="TEACHER_ID" DataSourceID="SqlDataSource1" Height="38px" Width="821px">
+        <asp:FormView ID="FormView1" runat="server" DataKeyNames="TEACHER_ID" DataSourceID="SqlDataSource1" Height="38px" Width="816px">
             <EditItemTemplate>
                 TEACHER_ID:
                 <asp:Label ID="TEACHER_IDLabel1" runat="server" Text='<%# Eval("TEACHER_ID") %>' />
@@ -75,11 +75,13 @@ from dual where not exists (select 1 from teacher where teacher_id=:teacher_id)"
                 TEACHER_ID:
                 <br />
                 <asp:TextBox ID="TEACHER_IDTextBox" runat="server" Text='<%# Bind("TEACHER_ID") %>' />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TEACHER_IDTextBox" ErrorMessage="Please enter the ID" ForeColor="Red"></asp:RequiredFieldValidator>
                 <br />
                 <br />
                 TEACHER_NAME:
                 <br />
                 <asp:TextBox ID="TEACHER_NAMETextBox" runat="server" Text='<%# Bind("TEACHER_NAME") %>' />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TEACHER_NAMETextBox" ErrorMessage="Please enter the name" ForeColor="Red"></asp:RequiredFieldValidator>
                 <br />
                 <br />
                 DEPARTMENT:
@@ -90,6 +92,7 @@ from dual where not exists (select 1 from teacher where teacher_id=:teacher_id)"
                 EMAIL:
                 <br />
                 <asp:TextBox ID="EMAILTextBox" runat="server" Text='<%# Bind("EMAIL") %>' />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="EMAILTextBox" ErrorMessage="Please enter the email" ForeColor="Red"></asp:RequiredFieldValidator>
                 <br />
                 <br />
                 <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" Text="Insert" />
